@@ -25,4 +25,4 @@ cmake --build build --parallel "${CPU_COUNT}"
 cmake --install build
 
 # Copy build output kp*.so to site-packages
-find build -name "kp*.so" -exec install -m 755 -t "${SP_DIR}/" {} \;
+find build -name 'kp*.so' -exec install -m 755 '{}' "$SP_DIR/" \;
