@@ -37,6 +37,7 @@ requirements:
     - libvulkan-headers >=1.3.231,<1.3.300
     - libvulkan-loader >=1.3.231,<1.3.300
   run:
+    - ${{ pin_compatible("libvulkan-loader", upper_bound="x.x.x") }}
     - ${{ "moltenvk" if osx }}
     - numpy
     - python
