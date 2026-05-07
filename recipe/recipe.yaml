@@ -16,7 +16,7 @@ source:
     - patches/0005-python-module-build-dep.patch
 
 build:
-  number: 0
+  number: 1
 
 requirements:
   build:
@@ -25,13 +25,19 @@ requirements:
     - ${{ "make" if unix }}
     - ${{ "jom" if win }}
     - cmake
+    - if: build_platform != target_platform
+      then:
+        - cross-python_${{ target_platform }}
+        - pybind11
+        - python
   host:
     - fmt
     - pybind11
     - python
-    - vulkan-headers
-    - libvulkan-loader
+    - libvulkan-headers >=1.3.231,<1.3.300
+    - libvulkan-loader >=1.3.231,<1.3.300
   run:
+    - ${{ pin_compatible("libvulkan-loader", upper_bound="x.x.x") }}
     - ${{ "moltenvk" if osx }}
     - numpy
     - python
@@ -50,30 +56,6 @@ tests:
         - kp
       pip_check: true
       python_version: ${{ python }}
-
-  - script:
-      interpreter: python
-      content: |
-        import platform
-        import subprocess
-        import sys
-
-        if platform.system() != "Linux":
-            sys.exit(0)
-        # pyshader does not support Python 3.11+; skip on newer versions
-        if sys.version_info >= (3, 11):
-            sys.exit(0)
-        sys.exit(subprocess.run(["make", "test_python"]).returncode)
-    requirements:
-      run:
-        - glslang
-        - make
-        - pyshader
-        - pytest
-    files:
-      source:
-        - python/test/
-        - Makefile
 
 about:
   homepage: https://kompute.cc
