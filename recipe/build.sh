@@ -25,4 +25,4 @@ cmake --build build --parallel "${CPU_COUNT}"
 cmake --install build
 
 # Copy build output kp*.so to site-packages
-find build -name "kp*.so" -exec install -m 755 {} "${SP_DIR}/kp$(python3-config --extension-suffix)" \;
+find build -name "kp*.so" -exec install -m 755 -t "${SP_DIR}/" {} \;
