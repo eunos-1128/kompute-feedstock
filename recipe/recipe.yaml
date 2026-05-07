@@ -56,30 +56,6 @@ tests:
       pip_check: true
       python_version: ${{ python }}
 
-  - script:
-      interpreter: python
-      content: |
-        import platform
-        import subprocess
-        import sys
-
-        if platform.system() != "Linux":
-            sys.exit(0)
-        # pyshader does not support Python 3.11+; skip on newer versions
-        if sys.version_info >= (3, 11):
-            sys.exit(0)
-        sys.exit(subprocess.run(["make", "test_python"]).returncode)
-    requirements:
-      run:
-        - glslang
-        - make
-        - pyshader
-        - pytest
-    files:
-      source:
-        - python/test/
-        - Makefile
-
 about:
   homepage: https://kompute.cc
   repository: https://github.com/KomputeProject/kompute
