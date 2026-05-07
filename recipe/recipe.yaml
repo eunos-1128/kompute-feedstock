@@ -29,7 +29,7 @@ requirements:
     - fmt
     - pybind11
     - python
-    - vulkan-headers
+    - libvulkan-headers
     - libvulkan-loader
   run:
     - ${{ "moltenvk" if osx }}
