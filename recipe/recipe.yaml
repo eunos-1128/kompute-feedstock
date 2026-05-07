@@ -34,11 +34,10 @@ requirements:
     - fmt
     - pybind11
     - python
-    - libvulkan-headers
-    - libvulkan-loader
+    - libvulkan-headers >=1.3.231,<1.3.300
+    - libvulkan-loader >=1.3.231,<1.3.300
   run:
     - ${{ "moltenvk" if osx }}
-    - libvulkan-loader
     - numpy
     - python
   run_exports:
